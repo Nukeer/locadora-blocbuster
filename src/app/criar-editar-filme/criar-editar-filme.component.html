@@ -1,0 +1,103 @@
+<h2 mat-dialog-title>{{ data.mode }} Filme</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="row w-100">
+    <div class="col-3">
+      <mat-form-field>
+        <mat-label>Numero do Filme</mat-label>
+        <input matInput [(ngModel)]="film.numFilme" />
+      </mat-form-field>
+    </div>
+    <div class="col-3">
+      <mat-form-field>
+        <mat-label>Tipo do Produto</mat-label>
+        <mat-select [(value)]="film.tipoProd">
+          <mat-option>Nenhum</mat-option>
+          <mat-option value="VHS">VHS</mat-option>
+          <mat-option value="DVD">DVD</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-3">
+      <mat-form-field>
+        <mat-label>Tipo de Filme</mat-label>
+        <input matInput [(ngModel)]="film.tipoFilme" />
+      </mat-form-field>
+    </div>
+    <div class="col-3">
+      <mat-form-field>
+        <mat-label>Gênero</mat-label>
+        <mat-select [(value)]="film.gen">
+          <mat-option>Nenhum</mat-option>
+          <mat-option *ngFor="let genero of generos" [value]="genero">{{
+            genero
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row w-100">
+    <div class="col-8">
+      <mat-form-field>
+        <mat-label>Titulo do Filme</mat-label>
+        <input matInput [(ngModel)]="film.titulo" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row w-100">
+    <div class="col-8">
+      <mat-form-field>
+        <mat-label>Principais Atores</mat-label>
+        <input matInput [(ngModel)]="film.atores" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row w-100">
+    <div class="col-8">
+      <mat-form-field>
+        <mat-label>Principais Diretores</mat-label>
+        <input matInput [(ngModel)]="film.diretores" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row w-100">
+    <div class="col-8">
+      <mat-form-field>
+        <mat-label>Fornecedor</mat-label>
+        <input matInput [(ngModel)]="film.fornecedor" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row w-100">
+    <div class="col-3">
+      <mat-form-field>
+        <mat-label>Tipo de Idioma</mat-label>
+        <input matInput [(ngModel)]="film.tipoIdioma" />
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-form-field>
+        <mat-label>Valor</mat-label>
+        <input matInput [(ngModel)]="film.valorLocacao" />
+      </mat-form-field>
+    </div>
+    <div class="col-3">
+      <mat-form-field appearance="fill">
+        <mat-label>Data Cadastro</mat-label>
+        <input
+          matInput
+          [matDatepicker]="dp1"
+          [(ngModel)]="film.dataCad"
+          disabled
+        />
+        <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+        <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="film" cdkFocusInitial>
+    {{ data.mode }}
+  </button>
+</mat-dialog-actions>
