@@ -21,10 +21,10 @@ export interface FilmData {
 
 @Component({
   selector: 'app-item-um',
-  templateUrl: './item-um.component.html',
-  styleUrls: ['./item-um.component.scss'],
+  templateUrl: './listar-filme.component.html',
+  styleUrls: ['./listar-filme.component.scss'],
 })
-export class ItemUmComponent implements AfterViewInit {
+export class ListarFilmeComponent implements AfterViewInit {
   displayedColumns: string[] = ['number', 'title', 'value', 'date', 'action'];
   dataSource: MatTableDataSource<FilmData>;
 
@@ -126,8 +126,11 @@ export class ItemUmComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result);
-        index ? (this.films[index] = result) : this.films.push(result);
+        if (this.films[index]) {
+          this.films[index] = result;
+        } else {
+          this.films.push(result);
+        }
         this.dataSource = new MatTableDataSource(this.films);
       }
     });

@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 const TIPOPRODUTO: string[] = ['VHS', 'DVD'];
@@ -25,6 +26,8 @@ export interface FilmData {
 export class CriarEditarFilmeComponent implements OnInit {
   film: FilmData;
 
+  filme: FormGroup;
+
   generos: string[] = [
     'Ação',
     'Aventura',
@@ -49,27 +52,28 @@ export class CriarEditarFilmeComponent implements OnInit {
   ];
   constructor(
     public dialogRef: MatDialogRef<CriarEditarFilmeComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private fb: FormBuilder
   ) {
-    this.film = this.initializeVariables();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.initializeVariables();
+  }
 
-  initializeVariables(): FilmData {
-    const value: FilmData = {
-      atores: this.data.value ? this.data.value.atores : '',
-      titulo: this.data.value ? this.data.value.titulo : '',
-      dataCad: this.data.value ? this.data.value.dataCad : '',
-      diretores: this.data.value ? this.data.value.diretores : '',
-      valorLocacao: this.data.value ? this.data.value.valorLocacao : '',
-      tipoProd: this.data.value ? this.data.value.tipoProd : '',
-      tipoIdioma: this.data.value ? this.data.value.tipoIdioma : '',
-      tipoFilme: this.data.value ? this.data.value.tipoFilme : '',
-      numFilme: this.data.value ? this.data.value.numFilme : '',
-      gen: this.data.value ? this.data.value.gen : '',
-      fornecedor: this.data.value ? this.data.value.fornecedor : '',
-    };
-    return value;
+  initializeVariables(): void {
+    this.filme = this.fb.group({
+      atores: this.fb.control(this.data.value?.atores),
+      titulo: this.fb.control(this.data.value?.titulo, [Validators.required]),
+      dataCad: this.fb.control(this.data.value?.dataCad, [Validators.required]),
+      diretores: this.fb.control(this.data.value?.diretores),
+      valorLocacao: this.fb.control(this.data.value?.valorLocacao, [Validators.required]),
+      tipoProd: this.fb.control(this.data.value?.tipoProd, [Validators.required]),
+      tipoFilme: this.fb.control(this.data.value?.tipoProd, [Validators.required]),
+      tipoIdioma: this.fb.control(this.data.value?.tipoIdioma),
+      numFilme: this.fb.control(this.data.value?.numFilme, [Validators.required]),
+      gen: this.fb.control(this.data.value?.gen, [Validators.required]),
+      fornecedor: this.fb.control(this.data.value?.fornecedor),
+    });
   }
 }
